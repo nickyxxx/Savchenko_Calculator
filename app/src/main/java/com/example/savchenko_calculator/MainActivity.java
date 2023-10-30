@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     boolean isNegative = false;
+    boolean signPresent = false;
     @Override
     public void onClick(View view) {
         MaterialButton button =(MaterialButton) view;
@@ -83,7 +84,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         else if(buttonText.equals("C")){
+            if(resultTv.getText().length()!=1)
             dataToCalculate = dataToCalculate.substring(0,dataToCalculate.length()-1);
+            else {
+                solutionTv.setText("");
+                resultTv.setText("0");
+                return;
+            }
         }
         else if(buttonText.equals("+/-"))
         {
@@ -95,9 +102,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dataToCalculate = dataToCalculate+buttonText;
         }
         if(rootPresent){
-            solutionTv.setText("SQRT("+dataToCalculate+")");
-
             Double finalResult = Math.sqrt(Double.parseDouble(getResult(dataToCalculate))) ;
+            solutionTv.setText(finalResult.toString());
 
             if(!finalResult.equals("Err")){
                 resultTv.setText(Double.toString(finalResult));
@@ -105,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else{
             solutionTv.setText(dataToCalculate);
-
             String finalResult = getResult(dataToCalculate);
 
             if(!finalResult.equals("Err")){
