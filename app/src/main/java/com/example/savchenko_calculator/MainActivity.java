@@ -1,6 +1,6 @@
 package com.example.savchenko_calculator;
 import androidx.appcompat.app.AppCompatActivity;
-
+import org.mariuszgromada.math.mxparser.*;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     TextView resultTv,solutionTv;
     MaterialButton buttonC;
-    MaterialButton buttonDivide,buttonMultiply,buttonPlus,buttonMinus,buttonEquals, buttonPlusMinus, buttonRoot;
+    MaterialButton buttonDivide,buttonMultiply,buttonPlus,buttonMinus,buttonEquals, buttonPlusMinus, buttonRoot, buttonPow;
     MaterialButton button0,button1,button2,button3,button4,button5,button6,button7,button8,button9;
     MaterialButton buttonAC,buttonDot;
 
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         assignId(button9,R.id.button_9);
         assignId(buttonAC,R.id.button_ac);
         assignId(buttonDot,R.id.button_dot);
+        assignId(buttonPow,R.id.button_pow);
 
 
 
@@ -64,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MaterialButton button =(MaterialButton) view;
         String buttonText = button.getText().toString();
         String dataToCalculate = solutionTv.getText().toString();
-        boolean rootPresent=false;
         if(buttonText.equals("AC")){
             solutionTv.setText("");
             resultTv.setText("0");
@@ -77,10 +77,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dataToCalculate = dataToCalculate + "*";
         }
         else if(buttonText.equals("√")){
-            rootPresent = true;
+
+            dataToCalculate = dataToCalculate + "√";
+        }
+        else if(buttonText.equals("^")){
+
+            dataToCalculate = dataToCalculate + "^";
         }
         else if(buttonText.equals("=")){
-            solutionTv.setText(resultTv.getText());
+
+            solutionTv.setText(dataToCalculate);
+            String userExp = solutionTv.getText().toString();
+            Expression exp = new Expression (userExp);
+            String result = String.valueOf(exp.calculate());
+            resultTv.setText(result);
             return;
         }
         else if(buttonText.equals("C")){
@@ -96,42 +106,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             dataToCalculate = isNegative ? dataToCalculate.substring(1) : "-" + dataToCalculate;
             isNegative = !isNegative;
-
         }
         else{
             dataToCalculate = dataToCalculate+buttonText;
         }
-        if(rootPresent){
-            Double finalResult = Math.sqrt(Double.parseDouble(getResult(dataToCalculate))) ;
-            solutionTv.setText(finalResult.toString());
+        solutionTv.setText(dataToCalculate);
+        String userExp = solutionTv.getText().toString();
 
-            if(!finalResult.equals("Err")){
-                resultTv.setText(Double.toString(finalResult));
-            }
-        }
-        else{
-            solutionTv.setText(dataToCalculate);
-            String finalResult = getResult(dataToCalculate);
+        Expression exp = new Expression (userExp);
 
-            if(!finalResult.equals("Err")){
-                resultTv.setText(finalResult);
-            }
-        }
-    }
+        String result = String.valueOf(exp.calculate());
 
-    String getResult(String data){
-        try{
-            Context context  = Context.enter();
-            context.setOptimizationLevel(-1);
-            Scriptable scriptable = context.initStandardObjects();
-            String finalResult =  context.evaluateString(scriptable,data,"Javascript",1,null).toString();
-            if(finalResult.endsWith(".0")){
-                finalResult = finalResult.replace(".0","");
-            }
-            return finalResult;
-        }catch (Exception e){
-            return "Err";
-        }
+        resultTv.setText(result);
+
     }
 
 }

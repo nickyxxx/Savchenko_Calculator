@@ -52,11 +52,23 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_c"
                 style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:backgroundTint="#F44336"
                 android:text="@string/delete"
+                android:textColor="@color/white"
+                android:textSize="32dp"
+                app:cornerRadius="36dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_pow"
+                style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+                android:layout_width="59dp"
+                android:layout_height="72dp"
+                android:layout_margin="12dp"
+                android:backgroundTint="#A1A1A1"
+                android:text="@string/power"
                 android:textColor="@color/white"
                 android:textSize="32dp"
                 app:cornerRadius="36dp" />
@@ -76,7 +88,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_square_root"
                 style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-                android:layout_width="72dp"
+                android:layout_width="59dp"
                 android:layout_height="72dp"
                 android:layout_margin="12dp"
                 android:backgroundTint="#A1A1A1"
@@ -89,7 +101,7 @@
                 android:id="@+id/button_divide"
                 style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
                 android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:backgroundTint="#FF9800"
                 android:text="@string/divide"

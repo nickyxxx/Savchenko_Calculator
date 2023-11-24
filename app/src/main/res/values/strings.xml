@@ -21,6 +21,7 @@
     <string name="plusMinus">+/-</string>
     <string name="point">.</string>
     <string name="equals">=</string>
+    <string name="power">^</string>
 
 
 </resources>
